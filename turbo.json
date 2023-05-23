@@ -1,0 +1,19 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**", ".nuxt", ".output"]
+    },
+    "lint": {},
+    "test": {},
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "generate": {},
+    "preview": {
+      "dependsOn": ["^build"]
+    },
+    "postinstall": {}
+  }
+}

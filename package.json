@@ -1,0 +1,21 @@
+{
+  "name": "loona",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "generate": "turbo run generate",
+    "preview": "turbo run preview",
+    "postinstall": "turbo run postinstall",
+    "test": "turbo run test",
+    "lint": "turbo run lint"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "turbo": "^1.9.8"
+  }
+}
