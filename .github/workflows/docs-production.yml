@@ -2,7 +2,7 @@
 #
 # To get started with Nuxt see: https://nuxtjs.org/docs/get-started/installation
 #
-name: Documentation Production Deploy
+name: 🚀 Documentation Production Deploy
 
 on:
   # Runs on pushes targeting the default branch
@@ -28,6 +28,12 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Set the default working directory on a specify folder
+# to docs
+defaults:
+  run:
+    working-directory: apps/docs
+
 jobs:
   # Build job
   build:
@@ -35,8 +41,6 @@ jobs:
     steps:
       - name: Checkout the docs source
         uses: actions/checkout@v3
-        with:
-          path: apps/docs
       - name: Detect package manager
         id: detect-package-manager
         run: |
