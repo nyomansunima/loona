@@ -28,12 +28,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# Set the default working directory on a specify folder
-# to docs
-defaults:
-  run:
-    working-directory: apps/docs
-
 jobs:
   # Build job
   build:
@@ -41,6 +35,8 @@ jobs:
     steps:
       - name: Checkout the docs source
         uses: actions/checkout@v3
+      - name: Go to docs workdir
+        run: cd apps/docs
       - name: Detect package manager
         id: detect-package-manager
         run: |
