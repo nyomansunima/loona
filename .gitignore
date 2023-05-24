@@ -9,8 +9,5 @@ dist
 .DS_Store
 
 
-# turbo
-.turbo
-
 # vercel
 .vercel
