@@ -28,16 +28,13 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
   
-  
-# Set default working directory to docs folder
-# as main documentation project path
-defaults:
-  run:
-    working-directory: apps/docs
 
 jobs:
   # Build job
   build:
+    defaults:
+      run:
+        working-directory: apps/docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the docs source
@@ -61,7 +58,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Github Pages
         uses: actions/configure-pages@v3
         with:
