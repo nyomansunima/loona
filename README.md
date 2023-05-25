@@ -1,5 +1,9 @@
 <!-- PROJECT INFO -->
+<img src="https://github.com/nyomansunima/loona/assets/54091887/217b5538-aa98-4866-bf74-c44b24b53b85" width="100"/>
+
+
 # Loona
+
 **Simple and powerful event planner**
 
 <br/>
