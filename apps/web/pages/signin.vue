@@ -1,7 +1,7 @@
 <template>
   <!-- define meta tags -->
   <Head>
-    <Title>Signin | Loona</Title>
+    <Title>Signin</Title>
     <Meta name="description" content="Start joining into a wonderful event" />
   </Head>
 
