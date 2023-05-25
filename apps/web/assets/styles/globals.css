@@ -1,0 +1,12 @@
+/* Globals css */
+/* import the resources */
+/* import icons from UIcons from https://flaticon.com */
+@import '@flaticon/flaticon-uicons/css/all/all';
+
+/* import fonts from https://fonts.google.com */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@500;600;700&display=swap');
+
+/* presets */
+.fi {
+  @apply flex justify-center items-center;
+}
