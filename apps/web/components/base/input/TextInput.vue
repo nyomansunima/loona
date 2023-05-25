@@ -1,20 +1,20 @@
 <template>
   <div class="flex flex-col w-full">
     <label
-      :for="`${name}-input`"
       v-show="label"
+      :for="`${name}-input`"
       class="flex font-medium text-sm text-gray-700 ml-2 mb-3"
       >{{ label }}</label
     >
     <div
       class="flex items-center px-5 h-[52px] rounded-[20px] bg-slate-50 ring-1 ring-slate-100 focus-within:ring-2 focus-within:ring-lavender transition-all duration-300"
     >
-      <i class="text-lg" :class="preIcon" v-show="preIcon"></i>
+      <i v-show="preIcon" class="text-lg" :class="preIcon"></i>
       <input
         :id="`${name}-input`"
+        v-model="value"
         type="text"
         class="flex h-full flex-1 bg-transparent text-black text-[15px] placeholder:text-[15px] placeholder:text-gray-500 outline-transparent border-transparent ring-transparent focus:ring-transparent focus:border-transparent focus:outline-transparent"
-        v-model="value"
         :placeholder="placeholder"
       />
     </div>
@@ -31,14 +31,14 @@ interface TextInputProps {
   label?: string
   preIcon?: string
   name: string
-  value?: any
+  modelValue?: any
   placeholder?: string
 }
 
-const props = withDefaults(defineProps<TextInputProps>(), {})
+const props = defineProps<TextInputProps>()
 const { errorMessage, value, setValue } = useField(() => props.name)
-if (props.value) {
-  setValue(props.value)
+if (props.modelValue) {
+  setValue(props.modelValue)
 }
 </script>
 

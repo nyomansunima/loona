@@ -3,8 +3,8 @@
     class="flex justify-center items-center h-[52px] bg-lavender rounded-3xl font-medium text-base px-6 disabled:bg-opacity-70 relative"
     :class="props.class"
     :type="props.type"
-    @click="emit('click')"
     :disabled="disabled"
+    @click="emit('click')"
   >
     <slot>Button</slot>
   </button>

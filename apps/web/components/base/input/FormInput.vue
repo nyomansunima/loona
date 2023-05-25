@@ -22,8 +22,7 @@ interface FormEmit {
   (e: 'save', data: any): void
 }
 const emit = defineEmits<FormEmit>()
-const { handleSubmit } = props.context
-const onSubmit = handleSubmit((data) => {
+const onSubmit = props.context.handleSubmit((data) => {
   emit('save', data)
 })
 </script>
