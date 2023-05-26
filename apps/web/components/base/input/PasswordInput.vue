@@ -11,6 +11,7 @@
     >
       <i v-show="preIcon" class="text-lg" :class="preIcon"></i>
       <input
+        :name="name"
         :id="`${name}-input`"
         v-model="value"
         :type="isShowPass ? 'text' : 'password'"
