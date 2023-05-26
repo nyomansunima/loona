@@ -37,7 +37,7 @@
 
           <div class="flex justify-end pr-3">
             <TextButton
-              class="transition-all duration-300 hover:-translate-y-1"
+              class="transition-all duration-300 hover:-translate-y-1 forgot-password-button"
               @click="navigateTo('/forgot-password')"
               >Forget password</TextButton
             >

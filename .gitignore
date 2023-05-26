@@ -8,10 +8,8 @@ node_modules
 dist
 .DS_Store
 
-
 # vercel
 .vercel
-
 
 # env
 .env
