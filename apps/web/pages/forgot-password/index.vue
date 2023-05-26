@@ -42,7 +42,7 @@
           />
 
           <FlatButton
-            class="mt-5 transition-all duration-500 hover:-translate-y-1"
+            class="mt-5 transition-all duration-500 hover:-translate-y-1 action-button"
             type="submit"
             :disabled="sendResetEmail.pending.value"
           >
