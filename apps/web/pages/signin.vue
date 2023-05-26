@@ -44,7 +44,7 @@
           </div>
 
           <FlatButton
-            class="mt-5 transition-all duration-500 hover:-translate-y-1"
+            class="mt-5 transition-all duration-500 hover:-translate-y-1 signin"
             type="submit"
             :disabled="emailPassSignin.pending.value"
           >
@@ -57,12 +57,12 @@
         </div>
         <div class="flex justify-center items-center gap-5 mt-8">
           <OutlineButton
-            class="ring-2 ring-black"
+            class="ring-2 ring-black google"
             @click="googleSignin.mutate()"
             ><i class="fi fi-brands-google"></i> Google</OutlineButton
           >
           <OutlineButton
-            class="ring-2 ring-black"
+            class="ring-2 ring-black github"
             @click="githubSignin.mutate()"
             ><i class="fi fi-brands-github"></i> Github</OutlineButton
           >
