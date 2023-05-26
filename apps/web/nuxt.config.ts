@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     'nuxt-appwrite',
     '@nuxt/image-edge'
   ],
-  css: ['~/assets/styles/globals.css'],
+  css: [
+    '~/assets/styles/globals.css',
+    '@flaticon/flaticon-uicons/css/all/all.css'
+  ],
   imports: {
     dirs: ['composables/**']
   },
