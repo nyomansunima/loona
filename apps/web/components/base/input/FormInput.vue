@@ -1,5 +1,6 @@
 <template>
   <form
+    method="post"
     class="flex flex-col w-full"
     :class="props.class"
     @submit.prevent="onSubmit"

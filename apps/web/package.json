@@ -29,8 +29,9 @@
   "license": "MIT",
   "dependencies": {
     "@flaticon/flaticon-uicons": "^2.2.0",
+    "appwrite": "^11.0.0",
     "gsap": "^3.11.5",
-    "nuxt-appwrite": "^1.0.3",
+    "node-appwrite": "^9.0.0",
     "vee-validate": "^4.9.5",
     "yup": "^1.1.1"
   }

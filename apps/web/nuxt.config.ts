@@ -1,11 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/devtools',
-    'nuxt-appwrite',
-    '@nuxt/image-edge'
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/devtools', '@nuxt/image-edge'],
   css: [
     '~/assets/styles/globals.css',
     '@flaticon/flaticon-uicons/css/all/all.css'
@@ -27,12 +22,13 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
-  appwrite: {
-    project: process.env.APPWRITE_PROJECT
-  },
   runtimeConfig: {
     public: {
-      host: ''
+      host: '',
+      appwrite: {
+        project: process.env.APPWRITE_PROJECT,
+        apiKey: process.env.APPWRITE_API_KEY
+      }
     }
   }
 })

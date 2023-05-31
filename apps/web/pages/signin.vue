@@ -96,6 +96,10 @@ import { object, string } from 'yup'
 const { account, ID } = useAppwrite()
 const config = useRuntimeConfig()
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const signinSchema = object({
   email: string()
     .required('Please fill the email')
