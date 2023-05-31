@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/devtools', '@nuxt/image-edge'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxt/devtools',
+    '@nuxt/image-edge',
+    '@pinia/nuxt'
+  ],
   css: [
     '~/assets/styles/globals.css',
     '@flaticon/flaticon-uicons/css/all/all.css'
@@ -18,6 +23,9 @@ export default defineNuxtConfig({
   },
   devtools: {
     enabled: true
+  },
+  pinia: {
+    autoImports: [['defineStore', 'definePiniaStore']]
   },
   runtimeConfig: {
     public: {
