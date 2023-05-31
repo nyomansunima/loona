@@ -5,6 +5,10 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  titleTemplate: '%s | Loona'
+})
+
 useHead({
   titleTemplate: '%s | Loona',
   bodyAttrs: {

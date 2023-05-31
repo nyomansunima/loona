@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <!-- define meta tags -->
-    <Head>
-      <Title>Signin</Title>
-      <Meta name="description" content="Start joining into a wonderful event" />
-    </Head>
-
-    <!-- content body -->
-    <main class="flex w-screen h-screen">
-      <div
-        class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
+  <main class="flex w-screen h-screen">
+    <div
+      class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
+    >
+      <TextButton @click="navigateTo('/')" class="absolute left-16 top-10"
+        ><i class="fi fi-rr-arrow-left text-2xl"></i> Back</TextButton
       >
         <TextButton class="absolute left-16 top-10" @click="navigateTo('/')"
           ><i class="fi fi-rr-arrow-left text-2xl"></i> Back</TextButton
@@ -87,14 +82,20 @@
         </div>
       </div>
     </main>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { object, string } from 'yup'
 const { account, ID } = useAppwrite()
-const config = useRuntimeConfig()
+const {
+  public: { host }
+} = useRuntimeConfig()
+
+useSeoMeta({
+  title: 'Signin',
+  description: 'Start joining into a wonderful event'
+})
 
 definePageMeta({
   middleware: 'auth'
@@ -115,13 +116,17 @@ const signinForm = useForm({
   validationSchema: signinSchema
 })
 
-const emailPassSignin = await useMutation((form: any) => {
+const createUserCookie = async () => {
+  const session = await useAppwrite().account.getSession('current')
+}
+
+const emailPassSignin = useMutation(async (form: any) => {
   // first we need to create an account and also check if the user
   // already exist or not, then move into create user session
   // we also send the email verification to this user
   const { email, password } = form
   account.create(ID.unique(), email, password).finally(async () => {
-    await account.createVerification(`${config.public.host}`)
+    await account.createVerification(`${host}`)
     await account.createEmailSession(email, password)
     await navigateTo('/')
   })
@@ -132,8 +137,8 @@ const googleSignin = await useMutation(async () => {
   // with google OAuth2
   await account.createOAuth2Session(
     'google',
-    `${config.public.host}/signin`,
-    `${config.public.host}/signin?status='failed'`
+    `${host}/signin`,
+    `${host}/signin?status='failed'`
   )
 })
 
@@ -142,8 +147,8 @@ const githubSignin = await useMutation(async () => {
   // using github auth
   await account.createOAuth2Session(
     'github',
-    `${config.public.host}/signin`,
-    `${config.public.host}/signin?status='failed'`
+    `${host}/signin`,
+    `${host}/signin?status='failed'`
   )
 })
 </script>
