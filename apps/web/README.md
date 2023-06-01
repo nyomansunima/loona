@@ -1,42 +1,47 @@
-# Nuxt 3 Minimal Starter
+<img src="https://github.com/nyomansunima/loona/assets/54091887/217b5538-aa98-4866-bf74-c44b24b53b85" width="100"/>
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<br/>
 
-## Setup
+# 💘 Web Platform
 
-Make sure to install the dependencies:
+Web apps for Loona, used as main app to manage the event in Loona. There are several feature included in the apps.
 
-```bash
-# yarn
-yarn install
+<br/>
 
-# npm
-npm install
+## ✋ About
 
-# pnpm
-pnpm install
-```
+This project is aimed to connect the appwrite and other integration. Mainly used to manage the event, allow user to explore and doing all stuff.
 
-## Development Server
+This project is created for web platform. So to access need to use the browser. All feature in this app is explain in [Readme](/README.md)
 
-Start the development server on `http://localhost:3000`
+<br/>
 
-```bash
-npm run dev
-```
+## 🚀 Stacks
 
-## Production
+- Tailwindcss
+- GSAP
+- Appwrite
+- NuxtJS
+- Vercel
 
-Build the application for production:
+<br/>
 
-```bash
-npm run build
-```
+## 🚜 Getting started
 
-Locally preview production build:
+To getting started in this app project, please follow the instruction below.
 
-```bash
-npm run preview
-```
+1. Move into this working directory from workspace.
+2. Install all dependencies by using
+   ```bash
+     npm i
+   ```
+3. Running development server using this command.
+   ```bash
+     npm run dev
+   ```
+4. Open your browser and access this url [http://localhost:3000](https://localhost:3000)
+5. ✅ Now, youre can contribute.
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<br/>
+
+## 👍 Thanks

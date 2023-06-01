@@ -1,42 +1,46 @@
-# Docs Project Is Awesome
+<img src="https://github.com/nyomansunima/loona/assets/54091887/217b5538-aa98-4866-bf74-c44b24b53b85" width="100"/>
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<br/>
 
-## Setup
+# 💘 Docs
 
-Make sure to install the dependencies:
+Documentation for Loona. This project contain all documentation, tutorial, blog and other important stuff for Loona.
 
-```bash
-# yarn
-yarn install
+<br/>
 
-# npm
-npm install
+## ✋ About
 
-# pnpm
-pnpm install
-```
+All in one docs for Loona. This can used to store all content about project documentation, how to get started, contribute, blog and tutorial about how to use the app.
 
-## Development Server
+This project is created for web platform. So to access need to use the browser. All feature in this app is explain in [Readme](/README.md)
 
-Start the development server on `http://localhost:3000`
+<br/>
 
-```bash
-npm run dev
-```
+## 🚀 Stacks
 
-## Production
+- Tailwindcss
+- GSAP
+- NuxtJS
+- Vercel
 
-Build the application for production:
+<br/>
 
-```bash
-npm run build
-```
+## 🚜 Getting started
 
-Locally preview production build:
+To getting started in this app project, please follow the instruction below.
 
-```bash
-npm run preview
-```
+1. Move into this working directory from workspace.
+2. Install all dependencies by using
+   ```bash
+     npm i
+   ```
+3. Running development server using this command.
+   ```bash
+     npm run dev
+   ```
+4. Open your browser and access this url [http://localhost:3000](https://localhost:3000)
+5. ✅ Now, youre can contribute.
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<br/>
+
+## 👍 Thanks

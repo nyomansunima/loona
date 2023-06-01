@@ -90,17 +90,17 @@ import { useForm } from 'vee-validate'
 import { object, string } from 'yup'
 const { account, ID } = useAppwrite()
 const {
-  public: { host }
+  public: { host },
 } = useRuntimeConfig()
 const route = useRoute()
 
 useSeoMeta({
   title: 'Signin',
-  description: 'Start joining into a wonderful event'
+  description: 'Start joining into a wonderful event',
 })
 
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 const signinSchema = object({
@@ -111,11 +111,11 @@ const signinSchema = object({
   password: string()
     .required('Please fill the password')
     .min(8, 'The password at least must be 8 characters')
-    .trim()
+    .trim(),
 })
 
 const signinForm = useForm({
-  validationSchema: signinSchema
+  validationSchema: signinSchema,
 })
 
 const createCookie = async () => {
@@ -124,7 +124,7 @@ const createCookie = async () => {
   const user = await account.get()
   await useFetch('/api/auth/login', {
     method: 'POST',
-    body: user
+    body: user,
   })
 
   await navigateTo('/')
@@ -148,7 +148,7 @@ const googleSignin = await useMutation(async () => {
   await account.createOAuth2Session(
     'google',
     `${host}/signin?method=google&status=success`,
-    `${host}/signin?method=google&status=failed`
+    `${host}/signin?method=google&status=failed`,
   )
 })
 
@@ -158,7 +158,7 @@ const githubSignin = await useMutation(async () => {
   await account.createOAuth2Session(
     'github',
     `${host}/signin?method=github&status=success`,
-    `${host}/signin?method=github&status=failed`
+    `${host}/signin?method=github&status=failed`,
   )
 })
 
@@ -172,12 +172,12 @@ onMounted(() => {
 onMounted(() => {
   gsap.from('.right', {
     opacity: 0,
-    duration: 1
+    duration: 1,
   })
   gsap.from('.left', {
     y: 200,
     opacity: 0,
-    duration: 0.7
+    duration: 0.7,
   })
 })
 </script>
