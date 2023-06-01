@@ -1,16 +1,12 @@
 <template>
-  <!-- define meta tags -->
-  <Head>
-    <Title>Signin | Loona</Title>
-    <Meta name="description" content="Start joining into a wonderful event" />
-  </Head>
-
-  <!-- content body -->
   <main class="flex w-screen h-screen">
     <div
-      class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
+      class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative left"
     >
       <TextButton @click="navigateTo('/')" class="absolute left-16 top-10"
+        ><i class="fi fi-rr-arrow-left text-2xl"></i> Back</TextButton
+      >
+      <TextButton class="absolute left-16 top-10" @click="navigateTo('/')"
         ><i class="fi fi-rr-arrow-left text-2xl"></i> Back</TextButton
       >
 
@@ -18,54 +14,58 @@
         Joining dream event now
       </h2>
 
-      <Form
+      <FormInput
         :context="signinForm"
-        @save="emailPassSignin.mutate"
         class="gap-5 mt-10"
+        @save="emailPassSignin.mutate"
       >
         <TextInput
           name="email"
           placeholder="Your email address"
-          preIcon="fi fi-rr-user"
+          pre-icon="fi fi-rr-user"
         />
         <PasswordInput
           name="password"
           placeholder="Your password"
-          preIcon="fi fi-rr-lock"
+          pre-icon="fi fi-rr-lock"
         />
 
         <div class="flex justify-end pr-3">
           <TextButton
-            class="transition-all duration-300 hover:-translate-y-1"
+            class="transition-all duration-300 hover:-translate-y-1 forgot-password-button"
             @click="navigateTo('/forgot-password')"
             >Forget password</TextButton
           >
         </div>
 
         <FlatButton
-          class="mt-5 transition-all duration-500 hover:-translate-y-1"
+          class="mt-5 transition-all duration-500 hover:-translate-y-1 signin"
           type="submit"
           :disabled="emailPassSignin.pending.value"
         >
           {{ emailPassSignin.pending ? 'Signin in' : 'Signin now' }}
         </FlatButton>
-      </Form>
+      </FormInput>
 
       <div class="flex justify-center mt-6">
         <span>or signin using</span>
       </div>
       <div class="flex justify-center items-center gap-5 mt-8">
-        <OutlineButton @click="googleSignin.mutate()" class="ring-2 ring-black"
+        <OutlineButton
+          class="ring-2 ring-black google"
+          @click="googleSignin.mutate()"
           ><i class="fi fi-brands-google"></i> Google</OutlineButton
         >
-        <OutlineButton @click="githubSignin.mutate()" class="ring-2 ring-black"
+        <OutlineButton
+          class="ring-2 ring-black github"
+          @click="githubSignin.mutate()"
           ><i class="fi fi-brands-github"></i> Github</OutlineButton
         >
       </div>
     </div>
 
     <div
-      class="hidden laptop:flex w-1/2 h-full bg-[#F0EEFF] justify-center items-center fixed inset-y-0 right-0"
+      class="hidden laptop:flex w-1/2 h-full bg-[#F0EEFF] justify-center items-center fixed inset-y-0 right-0 right"
     >
       <div
         class="flex h-16 w-16 rounded-3xl bg-white border-2 border-slate-100 absolute top-6 -left-8"
@@ -85,10 +85,23 @@
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap'
 import { useForm } from 'vee-validate'
 import { object, string } from 'yup'
 const { account, ID } = useAppwrite()
-const config = useRuntimeConfig()
+const {
+  public: { host }
+} = useRuntimeConfig()
+const route = useRoute()
+
+useSeoMeta({
+  title: 'Signin',
+  description: 'Start joining into a wonderful event'
+})
+
+definePageMeta({
+  middleware: 'auth'
+})
 
 const signinSchema = object({
   email: string()
@@ -105,15 +118,27 @@ const signinForm = useForm({
   validationSchema: signinSchema
 })
 
-const emailPassSignin = await useMutation(async (form: any) => {
+const createCookie = async () => {
+  // create cookie session
+  // that work for both client and server side render
+  const user = await account.get()
+  await useFetch('/api/auth/login', {
+    method: 'POST',
+    body: user
+  })
+
+  await navigateTo('/')
+}
+
+const emailPassSignin = useMutation(async (form: any) => {
   // first we need to create an account and also check if the user
   // already exist or not, then move into create user session
   // we also send the email verification to this user
   const { email, password } = form
   account.create(ID.unique(), email, password).finally(async () => {
-    await account.createVerification(`${config.public.host}`)
+    await account.createVerification(`${host}`)
     await account.createEmailSession(email, password)
-    await navigateTo('/')
+    await createCookie()
   })
 })
 
@@ -122,8 +147,8 @@ const googleSignin = await useMutation(async () => {
   // with google OAuth2
   await account.createOAuth2Session(
     'google',
-    `${config.public.host}/signin`,
-    `${config.public.host}/signin?status='failed'`
+    `${host}/signin?method=google&status=success`,
+    `${host}/signin?method=google&status=failed`
   )
 })
 
@@ -132,8 +157,27 @@ const githubSignin = await useMutation(async () => {
   // using github auth
   await account.createOAuth2Session(
     'github',
-    `${config.public.host}/signin`,
-    `${config.public.host}/signin?status='failed'`
+    `${host}/signin?method=github&status=success`,
+    `${host}/signin?method=github&status=failed`
   )
+})
+
+onMounted(() => {
+  if (route.query.status === 'success') {
+    createCookie()
+  }
+})
+
+// animate the pages
+onMounted(() => {
+  gsap.from('.right', {
+    opacity: 0,
+    duration: 1
+  })
+  gsap.from('.left', {
+    y: 200,
+    opacity: 0,
+    duration: 0.7
+  })
 })
 </script>

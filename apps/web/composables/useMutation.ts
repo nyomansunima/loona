@@ -21,10 +21,10 @@ interface UseMutationOptions {
  * @param options options when teh mutatetion
  * @returns UseMutationReturn
  */
-export default async function useMutation<D, E>(
+export default function useMutation<D, E>(
   mutateFunc: (...args: any) => void,
   options?: UseMutationOptions
-): Promise<UseMutationReturn<D, E>> {
+): UseMutationReturn<D, E> {
   const pending = ref<boolean>(false)
   const error = ref<E | any>()
   const data = ref<D | any>()

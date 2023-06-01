@@ -3,10 +3,14 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/devtools',
-    'nuxt-appwrite',
-    '@nuxt/image-edge'
+    '@nuxt/image-edge',
+    '@pinia/nuxt',
+    'magic-regexp/nuxt'
   ],
-  css: ['~/assets/styles/globals.css'],
+  css: [
+    '~/assets/styles/globals.css',
+    '@flaticon/flaticon-uicons/css/all/all.css'
+  ],
   imports: {
     dirs: ['composables/**']
   },
@@ -18,18 +22,19 @@ export default defineNuxtConfig({
       }
     ]
   },
-  nitro: {
-    preset: 'vercel-edge'
-  },
   devtools: {
     enabled: true
   },
-  appwrite: {
-    project: process.env.APPWRITE_PROJECT
+  pinia: {
+    autoImports: [['defineStore', 'definePiniaStore']]
   },
   runtimeConfig: {
     public: {
-      host: ''
+      host: '',
+      appwrite: {
+        project: process.env.APPWRITE_PROJECT,
+        apiKey: process.env.APPWRITE_API_KEY
+      }
     }
   }
 })

@@ -1,29 +1,21 @@
 <template>
   <button
-    class="flex justify-center items-center h-[52px] bg-lavender rounded-3xl font-medium text-base px-6"
-    :class="props.class"
-    :type="props.type"
-    @click="emit('click')"
+    class="flex gap-3 justify-center items-center h-[52px] bg-lavender rounded-3xl font-medium text-base px-6 disabled:bg-opacity-70 relative"
+    :class="$props.class"
+    :type="$props.type"
     :disabled="disabled"
+    @click="link ? navigateTo(link) : $emit('click')"
   >
     <slot>Button</slot>
   </button>
 </template>
 
 <script setup lang="ts">
-interface FlatButtonProps {
-  class?: string
-  type?: 'button' | 'submit'
-  disabled?: boolean
-}
-const props = withDefaults(defineProps<FlatButtonProps>(), {
-  type: 'button'
-})
+import { BaseButtonProps, BaseButtonEmits } from '~/types/component'
 
-interface FlatButtonEmits {
-  (e: 'click'): void
-}
-const emit = defineEmits<FlatButtonEmits>()
+interface FlatButtonProps extends BaseButtonProps {}
+const { type = 'button' } = defineProps<FlatButtonProps>()
+
+interface FlatButtonEmits extends BaseButtonEmits {}
+defineEmits<FlatButtonEmits>()
 </script>
-
-<style scoped></style>
