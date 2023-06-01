@@ -11,7 +11,7 @@
     "lint": "prettier --write --list-different . && eslint --ext \".ts,.vue\" . --fix"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.5.3",
+    "@nuxt/devtools": "^0.5.5",
     "@nuxt/image-edge": "^1.0.0-28059208.2abef1b",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
