@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/devtools',
     '@nuxt/image-edge',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'magic-regexp/nuxt'
   ],
   css: [
     '~/assets/styles/globals.css',

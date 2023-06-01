@@ -1,16 +1,7 @@
 <template>
-  <div>
-    <!-- define meta tags -->
-    <Head>
-      <Title>Forgot Password</Title>
-      <Meta
-        name="description"
-        content="Reset your own password with the new one"
-      />
-    </Head>
-
-    <!-- content body -->
-    <main class="flex w-screen h-screen">
+  <main class="flex w-screen h-screen">
+    <!-- content -->
+    <Transition :css="false" @enter="animateOnEnter" @leave="animateOnLeave">
       <div
         v-show="activeStep == 'input'"
         class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
@@ -55,7 +46,9 @@
           </FlatButton>
         </FormInput>
       </div>
+    </Transition>
 
+    <Transition :css="false" @enter="animateOnEnter" @leave="animateOnLeave">
       <div
         v-show="activeStep == 'confirm'"
         class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
@@ -76,58 +69,91 @@
           valid for just 1 hour.</span
         >
       </div>
+    </Transition>
 
+    <!-- image illustration -->
+    <div
+      class="hidden laptop:flex w-1/2 h-full bg-[#FFEDF2] justify-center items-center fixed inset-y-0 right-0 image"
+    >
       <div
-        class="hidden laptop:flex w-1/2 h-full bg-[#FFEDF2] justify-center items-center fixed inset-y-0 right-0"
+        class="flex h-16 w-16 rounded-3xl bg-white border-2 border-slate-100 absolute top-6 -left-8"
       >
-        <div
-          class="flex h-16 w-16 rounded-3xl bg-white border-2 border-slate-100 absolute top-6 -left-8"
-        >
-          <NuxtImg
-            src="/images/logo.png"
-            height="100"
-            width="100"
-            class="object-contain"
-          />
-        </div>
-        <div class="relative h-[512px] w-[512px]">
-          <NuxtImg src="/images/illustrations/phone.png" class="object" />
-        </div>
+        <NuxtImg
+          src="/images/logo.png"
+          height="100"
+          width="100"
+          class="object-contain"
+        />
       </div>
-    </main>
-  </div>
+      <div class="relative h-[512px] w-[512px]">
+        <NuxtImg src="/images/illustrations/phone.png" class="object" />
+      </div>
+    </div>
+  </main>
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap'
 import { useForm } from 'vee-validate'
 import { object, string } from 'yup'
 const { account } = useAppwrite()
 const config = useRuntimeConfig()
 const activeStep = ref<'input' | 'confirm'>('input')
 
+useSeoMeta({
+  title: 'Forgot Password',
+  description: 'Reset your own password with the new one',
+})
+
 const formSchema = object({
   email: string()
     .required('Please fill the email')
-    .email('Opps, your email looks weird')
+    .email('Opps, your email looks weird'),
 })
 const form = useForm({
-  validationSchema: formSchema
+  validationSchema: formSchema,
 })
 
-const sendResetEmail = await useMutation(
+const sendResetEmail = useMutation(
   async (formData) => {
     // sending the email to reseting
     // password to confirm
     const { email } = formData
     await account.createRecovery(
       email,
-      `${config.public.host}/forgot-password/confirm`
+      `${config.public.host}/forgot-password/confirm`,
     )
   },
   {
     onSuccess: () => {
       activeStep.value = 'confirm'
-    }
-  }
+    },
+  },
 )
+
+// animate all elements
+// including the flow
+const animateOnEnter = (el, done) => {
+  gsap.from(el, {
+    y: 300,
+    opacity: 0,
+    duration: 1.2,
+    onComplete: done,
+  })
+}
+const animateOnLeave = (el, done) => {
+  gsap.to(el, {
+    y: -300,
+    opacity: 0,
+    duration: 1.2,
+    onComplete: done,
+  })
+}
+
+onMounted(() => {
+  gsap.from('.image', {
+    opacity: 0,
+    duration: 1.2,
+  })
+})
 </script>

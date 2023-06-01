@@ -1,16 +1,7 @@
 <template>
-  <div>
-    <!-- define meta tags -->
-    <Head>
-      <Title>Reset Password</Title>
-      <Meta
-        name="description"
-        content="Reset your own password with the new one"
-      />
-    </Head>
-
-    <!-- content body -->
-    <main class="flex w-screen h-screen">
+  <main class="flex w-screen h-screen">
+    <!-- content -->
+    <Transition :css="false" @enter="animateOnEnter" @leave="animateOnLeave">
       <div
         v-show="activeStep == 'input'"
         class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
@@ -63,7 +54,9 @@
           </FlatButton>
         </FormInput>
       </div>
+    </Transition>
 
+    <Transition :css="false" @enter="animateOnEnter" @leave="animateOnLeave">
       <div
         v-show="activeStep == 'confirm'"
         class="flex flex-col laptop:w-1/2 laptop:px-28 px-5 justify-center relative"
@@ -87,26 +80,27 @@
           >Signin now</FlatButton
         >
       </div>
+    </Transition>
 
+    <!-- illustration -->
+    <div
+      class="hidden laptop:flex w-1/2 h-full bg-[#FFECE4] justify-center items-center fixed inset-y-0 right-0 image"
+    >
       <div
-        class="hidden laptop:flex w-1/2 h-full bg-[#FFECE4] justify-center items-center fixed inset-y-0 right-0"
+        class="flex h-16 w-16 rounded-3xl bg-white border-2 border-slate-100 absolute top-6 -left-8"
       >
-        <div
-          class="flex h-16 w-16 rounded-3xl bg-white border-2 border-slate-100 absolute top-6 -left-8"
-        >
-          <NuxtImg
-            src="/images/logo.png"
-            height="100"
-            width="100"
-            class="object-contain"
-          />
-        </div>
-        <div class="relative h-[512px] w-[512px]">
-          <NuxtImg src="/images/illustrations/swing.png" class="object" />
-        </div>
+        <NuxtImg
+          src="/images/logo.png"
+          height="100"
+          width="100"
+          class="object-contain"
+        />
       </div>
-    </main>
-  </div>
+      <div class="relative h-[512px] w-[512px]">
+        <NuxtImg src="/images/illustrations/swing.png" class="object" />
+      </div>
+    </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -116,19 +110,24 @@ const { account } = useAppwrite()
 const route = useRoute()
 const activeStep = ref<'input' | 'confirm'>('input')
 
+useSeoMeta({
+  title: 'Confirm Reset Password',
+  description: 'Reset your own password with the new one',
+})
+
 const formSchema = object({
   password: string()
     .min(8, 'Password at least must be 8 characters')
     .required('Please fill the password'),
   confirmPassword: string()
     .min(8, 'Password at least must be 8 characters')
-    .required('Please fill the password')
+    .required('Please fill the password'),
 })
 const form = useForm({
-  validationSchema: formSchema
+  validationSchema: formSchema,
 })
 
-const updatePassword = await useMutation(
+const updatePassword = useMutation(
   async (formData) => {
     // sending the email to reseting
     // password to confirm
@@ -150,10 +149,36 @@ const updatePassword = await useMutation(
       if (err.message === 'invalid-password') {
         form.setFieldError(
           'confirmPassword',
-          'Opps, please insert the same password'
+          'Opps, please insert the same password',
         )
       }
-    }
-  }
+    },
+  },
 )
+
+// animate all elements
+// including the flow
+const animateOnEnter = (el, done) => {
+  gsap.from(el, {
+    y: 300,
+    opacity: 0,
+    duration: 1.2,
+    onComplete: done,
+  })
+}
+const animateOnLeave = (el, done) => {
+  gsap.to(el, {
+    y: -300,
+    opacity: 0,
+    duration: 1.2,
+    onComplete: done,
+  })
+}
+
+onMounted(() => {
+  gsap.from('.image', {
+    opacity: 0,
+    duration: 1.2,
+  })
+})
 </script>

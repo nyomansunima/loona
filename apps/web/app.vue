@@ -10,7 +10,6 @@ useSeoMeta({
 })
 
 useHead({
-  titleTemplate: '%s | Loona',
   bodyAttrs: {
     class:
       'text-base font-normal leading-normal text-black bg-white min-h-screen font-body'
