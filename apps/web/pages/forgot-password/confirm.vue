@@ -115,6 +115,10 @@ useSeoMeta({
   description: 'Reset your own password with the new one',
 })
 
+definePageMeta({
+  middleware: ['auth'],
+})
+
 const formSchema = object({
   password: string()
     .min(8, 'Password at least must be 8 characters')

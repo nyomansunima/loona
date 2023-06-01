@@ -105,6 +105,10 @@ useSeoMeta({
   description: 'Reset your own password with the new one',
 })
 
+definePageMeta({
+  middleware: ['auth'],
+})
+
 const formSchema = object({
   email: string()
     .required('Please fill the email')
