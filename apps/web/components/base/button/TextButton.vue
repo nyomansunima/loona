@@ -1,25 +1,26 @@
 <template>
   <button
     class="flex gap-3 justify-center items-center font-medium text-base"
-    :type="props.type"
-    :class="props.class"
-    @click.prevent="emit('click')"
+    :type="$props.type"
+    :class="$props.class"
+    @click="link ? navigateTo(link) : $emit('click')"
   >
     <slot>Button</slot>
   </button>
 </template>
 
 <script setup lang="ts">
-interface TextButtonProps {
-  class?: string
-  type?: 'button' | 'submit'
-}
-const props = withDefaults(defineProps<TextButtonProps>(), {
-  type: 'button'
-})
+import { BaseButtonEmits, BaseButtonProps } from '~/types/component'
 
-interface TextButtonEmits {
-  (e: 'click'): void
-}
-const emit = defineEmits<TextButtonEmits>()
+interface TextButtonProps extends BaseButtonProps {}
+const { type = 'button' } = defineProps<TextButtonProps>()
+
+interface TextButtonEmits extends BaseButtonEmits {}
+defineEmits<TextButtonEmits>()
 </script>
+
+<style scoped>
+:slotted(i) {
+  @apply text-xl;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <button
-    class="flex gap-3 justify-center items-center h-[52px] bg-lavender rounded-3xl font-medium text-base px-6 disabled:bg-opacity-70 relative"
-    :class="$props.class"
+    class="flex gap-3 justify-center items-center bg-lavender font-mediume disabled:bg-opacity-70 relative"
+    :class="[$props.class, sizeClass]"
     :type="$props.type"
     :disabled="disabled"
     @click="link ? navigateTo(link) : $emit('click')"
@@ -14,8 +14,19 @@
 import { BaseButtonProps, BaseButtonEmits } from '~/types/component'
 
 interface FlatButtonProps extends BaseButtonProps {}
-const { type = 'button' } = defineProps<FlatButtonProps>()
+const { type = 'button', size = 'medium' } = defineProps<FlatButtonProps>()
 
 interface FlatButtonEmits extends BaseButtonEmits {}
 defineEmits<FlatButtonEmits>()
+
+const sizeClass = computed(() => {
+  switch (size) {
+    case 'small':
+      return 'h-10 rounded-xl px-4 text-sm'
+    case 'medium':
+      return 'h-[52px] rounded-3xl px-6'
+    default:
+      return 'h-14 rounded-3xl px-6'
+  }
+})
 </script>
