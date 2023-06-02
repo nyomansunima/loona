@@ -7,7 +7,7 @@
       >{{ label }}</label
     >
     <div
-      class="flex items-center px-5 h-[52px] rounded-[20px] bg-slate-50 ring-1 ring-slate-100 focus-within:ring-2 focus-within:ring-lavender transition-all duration-300"
+      class="flex items-center px-4 h-12 rounded-2xl ring-1 ring-slate-100 focus-within:ring-2 focus-within:ring-black transition-all duration-300"
     >
       <i v-show="preIcon" class="text-lg" :class="preIcon"></i>
       <input
@@ -29,19 +29,13 @@
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
+import { BaseInputProps } from '~/types/component'
 
-interface TextInputProps {
-  label?: string
-  preIcon?: string
-  name: string
-  modelValue?: any
-  placeholder?: string
-}
-
-const props = defineProps<TextInputProps>()
-const { errorMessage, value, setValue } = useField(() => props.name)
-if (props.modelValue) {
-  setValue(props.modelValue)
+interface TextInputProps extends BaseInputProps {}
+const { modelValue, name } = defineProps<TextInputProps>()
+const { errorMessage, value, setValue } = useField(() => name)
+if (modelValue) {
+  setValue(modelValue)
 }
 </script>
 
