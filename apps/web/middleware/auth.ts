@@ -5,6 +5,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     (to.path.includes('/signin') || to.path.includes('forgot-password'))
   ) {
     return navigateTo('/')
+  } else if (!data.value && !to.path.includes('/signin')) {
+    return navigateTo('/signin')
+  } else {
+    return
   }
-  return
 })
