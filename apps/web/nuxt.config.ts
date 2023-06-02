@@ -5,36 +5,36 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     '@nuxt/image-edge',
     '@pinia/nuxt',
-    'magic-regexp/nuxt'
+    'magic-regexp/nuxt',
   ],
   css: [
     '~/assets/styles/globals.css',
-    '@flaticon/flaticon-uicons/css/all/all.css'
+    '@flaticon/flaticon-uicons/css/all/all.css',
   ],
   imports: {
-    dirs: ['composables/**']
+    dirs: ['composables/**', 'stores/**'],
   },
   components: {
     dirs: [
       {
         path: '~/components',
-        pathPrefix: false
-      }
-    ]
+        pathPrefix: false,
+      },
+    ],
   },
   devtools: {
-    enabled: true
+    enabled: true,
   },
   pinia: {
-    autoImports: [['defineStore', 'definePiniaStore']]
+    autoImports: ['defineStore'],
   },
   runtimeConfig: {
     public: {
       host: '',
       appwrite: {
         project: process.env.APPWRITE_PROJECT,
-        apiKey: process.env.APPWRITE_API_KEY
-      }
-    }
-  }
+        apiKey: process.env.APPWRITE_API_KEY,
+      },
+    },
+  },
 })
