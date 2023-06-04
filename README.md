@@ -1,5 +1,5 @@
 <!-- PROJECT INFO -->
-<img src="https://github.com/nyomansunima/loona/assets/54091887/217b5538-aa98-4866-bf74-c44b24b53b85" width="100"/>
+![Github social preview (3)](https://github.com/nyomansunima/loona/assets/54091887/646fa321-839f-4cf6-8c37-d5ca6498163b)
 
 
 # Loona
